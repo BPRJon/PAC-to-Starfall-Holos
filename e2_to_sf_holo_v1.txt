@@ -5,8 +5,7 @@
 Base = entity()
 
 #----------------------------------------------------------------------------------------#
-    I++, HN++, HT[HN,table] = table(I, Base, Base, 0, vec(0, 0, 0), ang(0, 0, 0), vec(1, 1, 1), "models/props_c17/oildrum001.mdl", "", vec4(255, 255, 255, 255), 0)
-	    CN++, CT[CN,table] = table(I, 1, vec(0, 0, 22.8652), vec(0.5379, 0.3795, -0.7528))
+#Paste PAC > E2 Holo Data here!!!!!!
 #----------------------------------------------------------------------------------------#
 while(perf() & SpawnCounter < HN){
     SpawnCounter++
