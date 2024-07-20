@@ -1,0 +1,70 @@
+--@name Holo Creator V3
+--@author jon b
+--@server
+
+--default values
+pos = Vector()
+ang = Angle()
+model = "models/balloons/balloon_dog.mdl"
+scale = Vector(1)
+--optional values
+--anything here you can set to nil to skip
+color = Color(255,0,0,255)
+mat = ""
+parent = nil --set this to either an entity, OR put the name of a parent holo that is also in the CreationTable as a string and it will be parented
+name = nil --a string to identify the holo as so it can be put in the Holos table. Also used to find the holo if another holo wants to parent to it
+clip = nil
+--[[
+HOLO CLIPS
+This version can only handle 1 clip per holo, so keep that in mind when creating stuff in PAC
+Clips are a subtable just to make it easier to read from, put them after the name
+
+{origin vec,normal vec} are the values that you can change/input
+]]
+
+Holos = {}
+CreationTable = {
+    {pos,ang,model,scale,color,mat,parent,name,clip}
+}
+
+function CreateHolos()
+    holocreate = coroutine.create(function()
+        for _,v in pairs(CreationTable) do
+            local holo = hologram.create(v[1]+chip():getPos(),v[2],v[3],v[4])
+            if v[5] ~= nil then
+                holo:setColor(v[5])
+            end
+            if v[6] ~= nil then
+                holo:setMaterial(v[6])
+            end
+            if v[7] ~= nil then
+                if type(v[7]) == "string" then
+                    holo:setParent(Holos[v[7]])
+                else
+                    holo:setParent(v[7])
+                end
+            end
+            if v[8] ~= nil then
+                Holos[v[8]] = holo
+            end
+            if v[9] ~= nil then
+                holo:setClip(1,true,v[9][1],v[9][2],holo)
+            end
+            if chip():getQuotaUsed() > chip():getQuotaMax()*0.5 then
+                coroutine.wait(1)
+            end            
+        end
+        print("Holos Created!")
+        hook.remove("tick","holo-anti-limiter")
+    end)
+    coroutine.resume(holocreate)
+end
+
+hook.add("tick","holo-anti-limiter", function()
+    if coroutine.status(holocreate) == "suspended" then
+        coroutine.resume(holocreate)
+    end
+    
+end)
+
+CreateHolos()

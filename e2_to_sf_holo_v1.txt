@@ -1,0 +1,42 @@
+@name E2 to SF Holo Converter Ver1
+@outputs [HT CT]:table
+@persist I HN CN SpawnCounter Base:entity
+
+Base = entity()
+
+#----------------------------------------------------------------------------------------#
+    I++, HN++, HT[HN,table] = table(I, Base, Base, 0, vec(0, 0, 0), ang(0, 0, 0), vec(1, 1, 1), "models/props_c17/oildrum001.mdl", "", vec4(255, 255, 255, 255), 0)
+	    CN++, CT[CN,table] = table(I, 1, vec(0, 0, 22.8652), vec(0.5379, 0.3795, -0.7528))
+#----------------------------------------------------------------------------------------#
+while(perf() & SpawnCounter < HN){
+    SpawnCounter++
+    Pos = "Vector("+HT[SpawnCounter,table][5,vector]:x()+","+HT[SpawnCounter,table][5,vector]:y()+","+HT[SpawnCounter,table][5,vector]:z()+")"
+    Ang = "Angle("+HT[SpawnCounter,table][6,angle]:pitch()+","+HT[SpawnCounter,table][6,angle]:yaw()+","+HT[SpawnCounter,table][6,angle]:roll()+")"
+    Mdl = "\""+HT[SpawnCounter,table][8,string]+"\""
+    Scl = "Vector("+HT[SpawnCounter,table][7,vector]:x()+","+HT[SpawnCounter,table][7,vector]:y()+","+HT[SpawnCounter,table][7,vector]:z()+")"
+    Clr = "Color("+HT[SpawnCounter,table][10,vector4]:x()+","+HT[SpawnCounter,table][10,vector4]:y()+","+HT[SpawnCounter,table][10,vector4]:z()+","+HT[SpawnCounter,table][10,vector4]:w()+")"
+    if(HT[SpawnCounter,table][9,string] != ""){
+        Mat = "\""+HT[SpawnCounter,table][9,string]+"\""
+    }
+    else{
+        Mat = "mat"
+    }
+    Parent = "parent"
+    Name = "name"
+    for(I=1,CT:count(),1){
+        if(CT[I,table][1,number] == SpawnCounter){
+            CPos = CT[I,table][3,vector]
+            CNor = CT[I,table][4,vector]
+            Clip = "{Vector("+CPos:x()+","+CPos:y()+","+CPos:z()+"),Vector("+CNor:x()+","+CNor:y()+","+CNor:z()+")}"
+        }
+        else{
+            Clip = "clip"
+        }
+    }
+    if(SpawnCounter < HN){
+        print(2,"{"+Pos+","+Ang+","+Mdl+","+Scl+","+Clr+","+Mat+","+Parent+","+Name+","+Clip+"},")
+    }
+    elseif(SpawnCounter == HN){
+        print(2,"{"+Pos+","+Ang+","+Mdl+","+Scl+","+Clr+","+Mat+","+Parent+","+Name+","+Clip+"}")
+    }
+}
