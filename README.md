@@ -12,5 +12,5 @@ e2_to_sf_holo_v1.txt is an Expression 2 File [][][] holo creator v3.txt is a Sta
 6. Paste SF Holo Data into the CreationTable of Holo Creator V3
 
 # Limitations
-Currently Holo Creator V3 can only handle 1 clip per holo, V4 will be able to handle multiple clips.
-The Converter Chip doesnt automatically put the SF Holo data into your clipboard, I'm trying to figure out something that doesnt use Antcore
+- Currently Holo Creator V3 can only handle 1 clip per holo, V4 will be able to handle multiple clips.
+- The Converter Chip doesnt automatically put the SF Holo data into your clipboard, I'm trying to figure out something that doesnt use Antcore
