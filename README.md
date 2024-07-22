@@ -9,4 +9,5 @@ e2_to_sf_holo_v1.txt is an Expression 2 File [][][] holo creator v3.txt is a Sta
 3. Copy and paste the Hologram Data (the thing making all of the tables) into the Converter chip
 4. Place converter chip
 5. Open the console and copy the holo data that was just printed
-6. Paste SF Holo Data into the CreationTable of Holo Creator V3
+6. Replace CreationTable and ClipTable in the Holo Creator with said holo data
+7. Open and Enjoy
