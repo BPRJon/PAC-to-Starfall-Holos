@@ -1,0 +1,53 @@
+@name E2 to SF Holo Converter Ver3
+@outputs [HT CT]:table
+@persist I HN CN SpawnCounter Base:entity Status
+if(first()){
+    Status = 1
+    Base = entity()
+#------------------------------------------------------------------------------------------------------------------------------------------#
+#PAC3 > E2 Holo Data goes here!!!! /// Replace this line!!!!
+#------------------------------------------------------------------------------------------------------------------------------------------#
+#Place this chip and open your console to get the converted data! Requires Holo Creator V4 https://github.com/BPRJon/PAC-to-Starfall-Holos
+#------------------------------------------------------------------------------------------------------------------------------------------#
+}
+interval(100)
+
+if(SpawnCounter == 0 & Status == 1){
+    print(2,"CreationTable = {")
+}
+if(playerCanPrint() == 1 & SpawnCounter < HN & Status == 1){
+    SpawnCounter++
+    Pos = "Vector("+HT[SpawnCounter,table][5,vector]:x()+","+HT[SpawnCounter,table][5,vector]:y()+","+HT[SpawnCounter,table][5,vector]:z()+")"
+    Ang = "Angle("+HT[SpawnCounter,table][6,angle]:pitch()+","+HT[SpawnCounter,table][6,angle]:yaw()+","+HT[SpawnCounter,table][6,angle]:roll()+")"
+    Mdl = "\""+HT[SpawnCounter,table][8,string]+"\""
+    Scl = "Vector("+HT[SpawnCounter,table][7,vector]:x()+","+HT[SpawnCounter,table][7,vector]:y()+","+HT[SpawnCounter,table][7,vector]:z()+")"
+    Clr = "Color("+HT[SpawnCounter,table][10,vector4]:x()+","+HT[SpawnCounter,table][10,vector4]:y()+","+HT[SpawnCounter,table][10,vector4]:z()+","+HT[SpawnCounter,table][10,vector4]:w()+")"
+    if(HT[SpawnCounter,table][9,string] != ""){
+        Mat = "\""+HT[SpawnCounter,table][9,string]+"\""
+    }
+    else{
+        Mat = "mat"
+    }
+    Parent = "parent"
+    Name = "name"
+    if(SpawnCounter < HN){
+        print(2,"{"+Pos+","+Ang+","+Mdl+","+Scl+","+Clr+","+Mat+","+Parent+","+Name+"},")
+    }
+    if(SpawnCounter == HN){
+        print(2,"{"+Pos+","+Ang+","+Mdl+","+Scl+","+Clr+","+Mat+","+Parent+","+Name+"}\n}\nClipTable = {")
+        SpawnCounter = 0
+        Status = 2
+    }
+}
+if(playerCanPrint() == 1 & SpawnCounter < CN & Status == 2){
+    SpawnCounter++
+    ID = CT[SpawnCounter,table][1,number]
+    ClipPos = "Vector("+CT[SpawnCounter,table][3,vector]:x()+","+CT[SpawnCounter,table][3,vector]:y()+","+CT[SpawnCounter,table][3,vector]:z()+")"
+    ClipNor = "Vector("+CT[SpawnCounter,table][4,vector]:x()+","+CT[SpawnCounter,table][4,vector]:y()+","+CT[SpawnCounter,table][4,vector]:z()+")"
+    if(SpawnCounter < CN){
+        print(2,"{"+ID+","+ClipPos+","+ClipNor+"},")
+    }
+    if(SpawnCounter == CN){
+        print(2,"{"+ID+","+ClipPos+","+ClipNor+"}\n}")
+    }
+}
