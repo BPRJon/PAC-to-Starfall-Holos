@@ -67,7 +67,9 @@ function CreateHolos(holotbl,cliptbl)
             end
             if holoindex == table.count(holotbl) then
                 hook.remove("tick","holo-creation-tick")
-                print("Holos Created!")
+                if printdone == true then
+                    print("Holos Created!")
+                end
             end
         end
     end)
